@@ -1,0 +1,82 @@
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v.
+    2.0 with a Healthcare Disclaimer.
+    A copy of the Mozilla Public License, v. 2.0 with the Healthcare Disclaimer can
+    be found under the top level directory, named LICENSE.
+    If a copy of the MPL was not distributed with this file, You can obtain one at
+    http://mozilla.org/MPL/2.0/.
+    If a copy of the Healthcare Disclaimer was not distributed with this file, You
+    can obtain one at the project website https://github.com/igia.
+
+    Copyright (C) 2018-2019 Persistent Systems, Inc.
+
+-->
+<div [formGroup]="form">
+    <div class="form-group bmd-form-group bmd-form-group-sm">
+        <label class="bmd-label-floating" translate="endpoint.name" igiaRequiredStyle [for]="uniqueId('name')">Name</label>
+        <input type="text" class="form-control" formControlName="name" [id]="uniqueId('name')"
+            [class.igia-custom-invalid]="form.get('name').errors" />
+        <igia-form-control-error translationKey="endpoint.name" [control]="form.get('name')"></igia-form-control-error>
+    </div>
+    <div class="row no-gutters">
+        <div class="igia-fg-pr form-group bmd-form-group bmd-form-group-sm col-md-6">
+            <label class="igia-fg-label-pr bmd-label-floating" translate="endpoint.inDataType" igiaRequiredStyle [for]="uniqueId('inDataType')">Incoming
+                Data
+                Type</label>
+            <select class="form-control" formControlName="inDataType" [id]="uniqueId('inDataType')"
+                [class.igia-custom-invalid]="!isDependentDataType() && form.get('inDataType').errors">
+                <option [ngValue]="null" [disabled]="isDependentDataType()">{{'endpoint.dataType.action.select' |
+                    translate}}</option>
+                <option [ngValue]="dataType" [disabled]="isDataTypeOptionDisabled(dataType)" *ngFor="let dataType of dataTypes">{{
+                    'endpoint.dataType.' +
+                    dataType | translate}}</option>
+            </select>
+            <igia-form-control-error translationKey="endpoint.inDataType" [control]="form.get('inDataType')"></igia-form-control-error>
+        </div>
+        <div class="igia-fg-pl form-group bmd-form-group bmd-form-group-sm col-md-6">
+            <label class="igia-fg-label-pl bmd-label-floating" translate="endpoint.outDataType" igiaRequiredStyle [for]="uniqueId('outDataType')">Outgoing
+                Data
+                Type</label>
+            <select class="form-control" formControlName="outDataType" [id]="uniqueId('outDataType')"
+                [class.igia-custom-invalid]="form.get('outDataType').errors">
+                <option [ngValue]="null">{{'endpoint.dataType.action.select' | translate}}</option>
+                <option [ngValue]="dataType" *ngFor="let dataType of dataTypes">{{ 'endpoint.dataType.' +
+                    dataType | translate}}</option>
+            </select>
+            <igia-form-control-error translationKey="endpoint.outDataType" [control]="form.get('outDataType')"></igia-form-control-error>
+        </div>
+    </div>
+    <igia-section titleText="Configurations" classes="igia-sub-section">
+        <ng-template igiaSection>
+            <div class="form-group bmd-form-group bmd-form-group-sm">
+                <label class="bmd-label-floating" translate="endpoint.type" igiaRequiredStyle [for]="uniqueId('type')">Type</label>
+                <select class="form-control" formControlName="type" [id]="uniqueId('type')" (change)="onTypeChange()"
+                    [class.igia-custom-invalid]="form.get('type').errors">
+                    <option [ngValue]="null">{{'endpoint.action.select' | translate}}</option>
+                    <option [ngValue]="endpointType" *ngFor="let endpointType of endpointTypes">{{ 'endpoint.' +
+                        endpointType | translate}}</option>
+                </select>
+                <igia-form-control-error translationKey="endpoint.type" [control]="form.get('type')"></igia-form-control-error>
+            </div>
+            <igia-endpoint-configuration [id]="id + 'c'" [configurations]="form.get('configurations')"
+                [configurationsMetadata]="configurationsMetadata"></igia-endpoint-configuration>
+        </ng-template>
+    </igia-section>
+    <igia-section titleText="Filters" [count]="filters.length" classes="igia-sub-section" collapse="true">
+        <ng-template igiaSection>
+            <igia-script [id]="id + 'f'" type="Filter" [scripts]="filters"></igia-script>
+        </ng-template>
+    </igia-section>
+    <igia-section titleText="Transformers" [count]="transformers.length" classes="igia-sub-section" collapse="true">
+        <ng-template igiaSection>
+            <igia-script [id]="id + 't'" type="Transformer" [scripts]="transformers"></igia-script>
+        </ng-template>
+    </igia-section>
+    <igia-section *ngIf="isProducer()" titleText="Response Transformers" [count]="responseTransformers.length" classes="igia-sub-section"
+        collapse="true">
+        <ng-template igiaSection>
+            <igia-script [id]="id + 'rt'" type="Transformer" [scripts]="responseTransformers"></igia-script>
+        </ng-template>
+    </igia-section>
+</div>

@@ -1,0 +1,47 @@
+[
+    {
+        "name": "DataPipeline_Sample",
+        "description": "FILE to FILE",
+        "deploy": false,
+        "workerService": "INTEGRATIONWORKER-I",
+        "source": {
+            "type": "FILE",
+            "name": "Source_1",
+            "inDataType": "CSV",
+            "outDataType": "CSV",
+            "configurations": [
+                {
+                    "key": "fileName",
+                    "value": "patient.csv"
+                },
+                {
+                    "key": "directoryName",
+                    "value": "home/input/csv"
+                }
+            ],
+            "filters": [],
+            "transformers": []
+        },
+        "destinations": [
+            {
+                "type": "FILE",
+                "name": "Destination_1",
+                "inDataType": "CSV",
+                "outDataType": "CSV",
+                "configurations": [
+                    {
+                        "key": "fileName",
+                        "value": "patient.csv"
+                    },
+                    {
+                        "key": "directoryName",
+                        "value": "home/output/csv"
+                    }
+                ],
+                "filters": [],
+                "transformers": [],
+                "responseTransformers": []
+            }
+        ]
+    }
+]

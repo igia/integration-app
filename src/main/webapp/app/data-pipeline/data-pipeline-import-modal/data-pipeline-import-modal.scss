@@ -1,0 +1,37 @@
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v.
+ * 2.0 with a Healthcare Disclaimer.
+ * A copy of the Mozilla Public License, v. 2.0 with the Healthcare Disclaimer can
+ * be found under the top level directory, named LICENSE.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at
+ * http://mozilla.org/MPL/2.0/.
+ * If a copy of the Healthcare Disclaimer was not distributed with this file, You
+ * can obtain one at the project website https://github.com/igia.
+ *
+ * Copyright (C) 2018-2019 Persistent Systems, Inc.
+ */
+@import '../../../content/scss/partials/variables';
+@import '../../../content/scss/partials/mixins';
+
+.import {
+    outline: 0.25rem dashed $igia-secondary-color;
+    height: 11rem;
+    @include transition(all, 0.25s, ease-in-out);
+}
+
+.import--active {
+    outline-color: $igia-primary-color;
+    background-color: $igia-border-color;
+    outline-offset: 0.35rem;
+    opacity: 0.6;
+    animation-delay: 2ms;
+}
+
+.import--icon {
+    opacity: 0.2;
+}
+
+.import__input:hover {
+    cursor: pointer;
+    color: $igia-primary-color;
+}

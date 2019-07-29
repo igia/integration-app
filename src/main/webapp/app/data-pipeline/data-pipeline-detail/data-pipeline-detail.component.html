@@ -1,0 +1,128 @@
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v.
+    2.0 with a Healthcare Disclaimer.
+    A copy of the Mozilla Public License, v. 2.0 with the Healthcare Disclaimer can
+    be found under the top level directory, named LICENSE.
+    If a copy of the MPL was not distributed with this file, You can obtain one at
+    http://mozilla.org/MPL/2.0/.
+    If a copy of the Healthcare Disclaimer was not distributed with this file, You
+    can obtain one at the project website https://github.com/igia.
+
+    Copyright (C) 2018-2019 Persistent Systems, Inc.
+
+-->
+<igia-page>
+    <ng-template igiaPageTitle>
+        <span *ngIf="isCreateFlow()" jhiTranslate="dataPipeline.home.createLabel">Create Data Pipeline</span>
+        <span *ngIf="!isCreateFlow()" jhiTranslate="dataPipeline.home.editLabel">Modify Data Pipeline</span>
+    </ng-template>
+    <ng-template igiaPageBody [loader]="!isSaving" loaderClasses="text-center">
+        <form class="row justify-content-center" [formGroup]="form" novalidate (ngSubmit)="save()">
+            <div class="col-10">
+                <div class="form-group bmd-form-group bmd-form-group-sm">
+                    <label class="bmd-label-floating" translate="dataPipeline.name" igiaRequiredStyle for="field_name">Name</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="name"
+                        id="field_name"
+                        required
+                        [class.igia-custom-invalid]="form.get('name').errors"
+                    />
+                    <igia-form-control-error translationKey="dataPipeline.name" [control]="form.get('name')"></igia-form-control-error>
+                </div>
+                <div class="form-group bmd-form-group bmd-form-group-sm">
+                    <label class=" bmd-label-floating" translate="dataPipeline.description" for="field_description">Description</label>
+                    <textarea class="form-control" rows="3" formControlName="description" id="field_description"></textarea>
+                    <igia-form-control-error
+                        translationKey="dataPipeline.description"
+                        [control]="form.get('description')"
+                    ></igia-form-control-error>
+                </div>
+                <div class="row no-gutters">
+                    <div class="igia-fg-pr col-md-6">
+                        <div class="bmd-form-group bmd-form-group-sm">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="form-control" formControlName="deploy" id="field_deploy" />{{
+                                        'dataPipeline.deploy' | translate
+                                    }}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="bmd-form-group bmd-form-group-sm">
+                            <label
+                                class="bmd-label-floating"
+                                translate="dataPipeline.workerService"
+                                igiaRequiredStyle
+                                for="field_workerService"
+                                >Worker Service</label
+                            >
+                            <select
+                                class="form-control"
+                                id="field_workerService"
+                                formControlName="workerService"
+                                [class.igia-custom-invalid]="form.get('workerService').errors"
+                            >
+                                <option [ngValue]="null">Select Integration worker to deploy pipeline</option>
+                                <option
+                                    [ngValue]="workerService.name"
+                                    *ngFor="let workerService of workerServices; trackBy: trackWorkerService"
+                                    >{{ workerService.name }}</option
+                                >
+                            </select>
+                            <igia-form-control-error
+                                translationKey="dataPipeline.workerService"
+                                [control]="form.get('workerService')"
+                            ></igia-form-control-error>
+                        </div>
+                    </div>
+                    <div class="igia-fg-pl form-group bmd-form-group bmd-form-group-sm col-md-6">
+                        <label class="bmd-label-floating" translate="dataPipeline.auditMessages" for="field_auditMessages">
+                            Audit Messages
+                        </label>
+                        <select multiple class="form-control igia-audit-field" id="field_auditMessages" formControlName="auditMessages">
+                            <option [ngValue]="auditMessageType" *ngFor="let auditMessageType of auditMessages">
+                                {{ 'dataPipeline.auditMessageOption.' + auditMessageType | translate }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <igia-section titleText="Source">
+                    <ng-template igiaSection>
+                        <igia-endpoint
+                            id="s0"
+                            [endpoint]="pipeline.source"
+                            [form]="source"
+                            [endpointTypes]="sourceEndpointTypes"
+                            endpointRole="CONSUMER"
+                        ></igia-endpoint>
+                    </ng-template>
+                </igia-section>
+                <igia-section titleText="Destination">
+                    <ng-template igiaSection>
+                        <igia-endpoint
+                            id="d0"
+                            [endpoint]="pipeline.destinations[0]"
+                            [form]="destinations['controls'][0]"
+                            endpointRole="PRODUCER"
+                            [endpointTypes]="destinationEndpointTypes"
+                            [depends]="source"
+                        ></igia-endpoint>
+                    </ng-template>
+                </igia-section>
+            </div>
+            <div class="col-10">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.cancel"
+                        >Cancel</span
+                    >
+                </button>
+                <button type="submit" id="save-entity" [disabled]="!form.valid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span class="d-none d-md-inline" jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </ng-template>
+</igia-page>

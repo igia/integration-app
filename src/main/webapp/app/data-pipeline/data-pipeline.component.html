@@ -1,0 +1,139 @@
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v.
+    2.0 with a Healthcare Disclaimer.
+    A copy of the Mozilla Public License, v. 2.0 with the Healthcare Disclaimer can
+    be found under the top level directory, named LICENSE.
+    If a copy of the MPL was not distributed with this file, You can obtain one at
+    http://mozilla.org/MPL/2.0/.
+    If a copy of the Healthcare Disclaimer was not distributed with this file, You
+    can obtain one at the project website https://github.com/igia.
+
+    Copyright (C) 2018-2019 Persistent Systems, Inc.
+
+-->
+<igia-page>
+    <ng-template igiaPageTitle>
+        <div>
+            <span jhiTranslate="dataPipeline.home.title">Data Pipelines</span>
+            <div class="float-right">
+                <button class="btn btn-primary" (click)="loadAll()">
+                    <fa-icon icon="sync-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.refresh">Refresh</span>
+                </button>
+                <button class="btn btn-primary" (click)="openImportDialog()">
+                    <fa-icon icon="file-import"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.import">Import</span>
+                </button>
+                <span [ngSwitch]="isDownloadInProgress()">
+                    <button class="btn btn-primary" (click)="exportAll()" *ngSwitchCase="false">
+                        <fa-icon icon="file-export"></fa-icon>
+                        <span class="d-none d-md-inline" jhiTranslate="entity.action.export">Export</span>
+                    </button>
+                    <span class="btn igia-progress-bar" *ngSwitchCase="true">
+                        <ngb-progressbar type="primary" animated="true" striped="true" height="1em" value="100"></ngb-progressbar>
+                    </span>
+                </span>
+                <button class="btn btn-primary" [routerLink]="['/data-pipeline/new']">
+                    <fa-icon icon="plus"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.create"> Create </span>
+                </button>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template igiaPageBody [loader]="loaded">
+        <a download hidden="true" #exportLink></a>
+        <div *ngIf="dataPipelines && dataPipelines.length">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="table-header"><span jhiTranslate="dataPipeline.name">Name</span></th>
+                        <th class="table-header d-none d-sm-table-cell"><span jhiTranslate="dataPipeline.workerService">Worker Service</span></th>
+                        <th class="table-header d-none d-md-table-cell"><span jhiTranslate="dataPipeline.source">Source</span></th>
+                        <th class="table-header d-none d-md-table-cell"><span jhiTranslate="dataPipeline.destination">Destination</span></th>
+                        <th class="table-header d-none d-md-table-cell"><span jhiTranslate="dataPipeline.modifiedOn">Modified Date</span></th>
+                        <th class="table-header"><span jhiTranslate="dataPipeline.state">State</span></th>
+                        <th class="table-header text-center"><span jhiTranslate="dataPipeline.deploy">Deploy</span></th>
+                        <th class="table-header"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dataPipeline of dataPipelines; trackBy: trackId">
+                        <td>
+                            <div>{{ dataPipeline.name }}</div>
+                            <div class="igia-secondary-text">v{{ dataPipeline.version }}</div>
+                        </td>
+                        <td class="d-none d-sm-table-cell" >{{ dataPipeline.workerService }}</td>
+                        <td class="d-none d-md-table-cell">{{ dataPipeline.source.name }}</td>
+                        <td class="d-none d-md-table-cell" >
+                            <ng-template ngFor let-destinationIndex="index" let-destination [ngForOf]="dataPipeline.destinations">
+                                <span>{{ destination.name }}</span><br *ngIf="destinationIndex !== dataPipeline.destinations.length - 1" />
+                            </ng-template>
+                        </td>
+                        <td class="d-none d-md-table-cell">{{ dataPipeline.modifiedOn | date: 'mediumDate' }}</td>
+                        <td>
+                            <span [ngbTooltip]="dataPipeline?.reason || dataPipeline?.state" [ngClass]="getClassByState(dataPipeline.state)">
+                                <span class="d-none d-sm-table-cell" >{{ dataPipeline.state }}</span>
+                                <span class="d-xs-table-cell d-sm-none badge-pill" >&nbsp;</span>
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <form class="mb-0">
+                                <span class="bmd-form-group bmd-form-group-sm">
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" [(ngModel)]="dataPipeline.deploy" name="deploy"
+                                                (change)="updatePipelineDeployment(dataPipeline.id)" />
+                                            <span class="top-0 bmd-switch-track" [ngbTooltip]="getDeploymentAction(dataPipeline.deploy) | translate"></span>
+                                        </label>
+                                    </div>
+                                </span>
+                            </form>
+                        </td>
+                        <td class="text-right">
+                            <div class="dropdown pull-xs-right">
+                                <button class="btn btn-primary bmd-btn-icon dropdown-toggle" type="button" id="lr1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <fa-icon icon="ellipsis-v"></fa-icon>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right igia-dropdown igia-md-dropdown" aria-labelledby="lr1">
+                                    <span class="button-wrapper disabled" [ngbTooltip]="getUpdateTooltip(dataPipeline.deploy) | translate">
+                                        <button [disabled]="dataPipeline.deploy" class="dropdown-item igia-dropdown-item" type="button"
+                                            [routerLink]="['/data-pipeline', dataPipeline.id, 'edit']">
+                                            <fa-icon icon="pencil-alt"></fa-icon>&nbsp;
+                                            <span class="pl-1 d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                        </button>
+                                    </span>
+                                    <span class="button-wrapper disabled" [ngbTooltip]="getDeleteTooltip(dataPipeline.deploy) | translate">
+                                        <button [disabled]="dataPipeline.deploy" class="dropdown-item igia-dropdown-item" type="button"
+                                            (click)="deleteDataPipeline(dataPipeline.id)">
+                                            <fa-icon icon="trash-alt"></fa-icon>&nbsp;
+                                            <span class="pl-1 d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                        </button>
+                                    </span>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item igia-dropdown-item" type="button" (click)="export(dataPipeline.id)">
+                                        <fa-icon icon="file-export"></fa-icon>&nbsp;
+                                        <span class="pl-1 d-none d-md-inline" jhiTranslate="entity.action.export">Export</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="dataPipelines && dataPipelines.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+                    [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+        <div *ngIf="loaded && dataPipelines && !dataPipelines.length">
+            <igia-alert [alerts]="noDataAlert()"></igia-alert>
+        </div>
+    </ng-template>
+</igia-page>

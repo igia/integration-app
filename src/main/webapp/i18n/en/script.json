@@ -1,0 +1,11 @@
+{
+    "script": {
+        "type": "Type",
+        "JAVASCRIPT": "Javascript",
+        "description": "Description",
+        "data": "Script",
+        "action": {
+            "select": "Select Scripting Language Type"
+        }
+    }
+}

@@ -1,0 +1,57 @@
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v.
+ * 2.0 with a Healthcare Disclaimer.
+ * A copy of the Mozilla Public License, v. 2.0 with the Healthcare Disclaimer can
+ * be found under the top level directory, named LICENSE.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at
+ * http://mozilla.org/MPL/2.0/.
+ * If a copy of the Healthcare Disclaimer was not distributed with this file, You
+ * can obtain one at the project website https://github.com/igia.
+ *
+ * Copyright (C) 2018-2019 Persistent Systems, Inc.
+ */
+@import '../../../content/scss/partials/variables';
+
+.script-type {
+    max-width: 10em;
+}
+
+.script-grip {
+    max-width: 2em;
+}
+
+.script-grip--icon {
+    color: $igia-secondary-color;
+    &:hover:active {
+        color: $igia-primary-color;
+    }
+    cursor: move;
+    cursor: -webkit-grab;
+}
+
+.script-box {
+    min-height: 10em;
+    max-height: 15em;
+    overflow: auto;
+    margin-bottom: 1rem;
+}
+
+.script-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.drop-container {
+    border-left: 2px solid $igia-primary-color !important;
+}
+
+@media screen and (max-width: 767px) {
+    .igia-md-dropdown {
+        min-width: 4rem !important;
+    }
+
+    .igia-dropdown-item {
+        min-width: 4rem !important;
+    }
+}

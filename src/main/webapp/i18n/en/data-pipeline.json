@@ -1,0 +1,69 @@
+{
+    "dataPipeline": {
+        "home": {
+            "title": "Data Pipelines",
+            "createLabel": "Create Data Pipeline",
+            "editLabel": "Modify Data Pipeline"
+        },
+        "created": "A new Data Pipeline is created with identifier {{ param }}",
+        "updated": "A Data Pipeline is updated with identifier {{ param }}",
+        "deleted": "A Data Pipeline is deleted with identifier {{ param }}",
+        "delete": {
+            "title": "Confirm Data Pipeline deletion",
+            "question": "Are you sure you want to delete '<span class=\"text-primary\">{{ name }}</span>' Data Pipeline?"
+        },
+        "import": {
+            "title": "Import Data Pipelines",
+            "selectFile": "<strong>Choose file</strong>",
+            "dragndrop": "or drag file here",
+            "dropFile": "Drop file here",
+            "progress": "Importing..."
+        },
+        "detail": {
+            "title": "Data Pipeline"
+        },
+        "name": "Name",
+        "description": "Description",
+        "deploy": "Deploy",
+        "version": "Version",
+        "state": "State",
+        "reason": "Reason",
+        "workerService": "Worker Service",
+        "auditMessages": "Audit messages",
+        "auditMessageOption": {
+            "ALL": "All",
+            "ERROR": "Errored",
+            "FILTERED": "Filtered Out"
+        },
+        "createdOn": "Created Date",
+        "createdBy": "Created By",
+        "modifiedOn": "Modified Date",
+        "modifiedBy": "Modified By",
+        "source": "Source",
+        "destination": "Destination",
+        "actions": {
+            "deploy": "Click to deploy",
+            "undeploy": "Click to undeploy",
+            "update.disabled": "Update operation is not allowed on Data Pipelines in the deployed state.",
+            "delete.disabled": "Delete operation is not allowed on Data Pipelines in the deployed state."
+        }
+    },
+    "dataPipelineDTO": {
+        "destinations[]": {
+            "transformers[]": {
+                "type": "Destination Transformer Type"
+            },
+            "filters[]": {
+                "type": "Destination Filter Type"
+            }
+        },
+        "source": {
+            "transformers[]": {
+                "type": "Source Transformer Type"
+            },
+            "filters[]": {
+                "type": "Source Filter Type"
+            }
+        }
+    }
+}

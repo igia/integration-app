@@ -1,0 +1,48 @@
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v.
+    2.0 with a Healthcare Disclaimer.
+    A copy of the Mozilla Public License, v. 2.0 with the Healthcare Disclaimer can
+    be found under the top level directory, named LICENSE.
+    If a copy of the MPL was not distributed with this file, You can obtain one at
+    http://mozilla.org/MPL/2.0/.
+    If a copy of the Healthcare Disclaimer was not distributed with this file, You
+    can obtain one at the project website https://github.com/igia.
+
+    Copyright (C) 2018-2019 Persistent Systems, Inc.
+
+-->
+<div class="modal-header">
+    <h4 class="modal-title" jhiTranslate="dataPipeline.import.title">Import Data Pipelines</h4>
+    <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-describedby="modal-title"
+        aria-hidden="true"
+        (click)="dismiss('cross click')"
+    >
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="import d-flex align-items-center m-auto" [class.import--active]="isDropAreaActive">
+        <div class="text-center w-100 p-4 m-auto" [ngSwitch]="isUploadInProgress()">
+            <div *ngSwitchCase="false">
+                <div class="pb-3 import--icon"><fa-icon icon="file-upload" size="5x"></fa-icon></div>
+                <label for="importFile" class="import__input" jhiTranslate="dataPipeline.import.selectFile">Choose file</label
+                ><span class="pl-2" jhiTranslate="dataPipeline.import.dragndrop"></span>
+                <input type="file" id="importFile" hidden="hidden" (change)="import($event)" />
+            </div>
+            <div *ngSwitchCase="true">
+                <span class="pl-2" jhiTranslate="dataPipeline.import.progress">Importing...</span>
+                <ngb-progressbar type="primary" animated="true" striped="true" height="1em" [value]="progressCounter"></ngb-progressbar>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="dismiss('close click')">
+        <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.close">Close</span>
+    </button>
+</div>

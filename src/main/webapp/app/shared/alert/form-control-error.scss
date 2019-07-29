@@ -1,0 +1,37 @@
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public License, v.
+ * 2.0 with a Healthcare Disclaimer.
+ * A copy of the Mozilla Public License, v. 2.0 with the Healthcare Disclaimer can
+ * be found under the top level directory, named LICENSE.
+ * If a copy of the MPL was not distributed with this file, You can obtain one at
+ * http://mozilla.org/MPL/2.0/.
+ * If a copy of the Healthcare Disclaimer was not distributed with this file, You
+ * can obtain one at the project website https://github.com/igia.
+ *
+ * Copyright (C) 2018-2019 Persistent Systems, Inc.
+ */
+@import '../../../content/scss/partials/variables';
+@import '~bootstrap-material-design/scss/variables';
+
+.igia-bmd-error {
+    position: relative;
+}
+.igia-bmd-error-message {
+    margin: 0;
+    padding: 0.35rem 0;
+    font-size: 0.75rem;
+    font-weight: normal;
+    min-height: 1rem;
+    position: relative;
+    border: 0;
+    color: $red;
+    &:first-child {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+    }
+    &:nth-child(n + 2) {
+        top: 1.5rem;
+    }
+}

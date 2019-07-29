@@ -1,0 +1,22 @@
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v.
+    2.0 with a Healthcare Disclaimer.
+    A copy of the Mozilla Public License, v. 2.0 with the Healthcare Disclaimer can
+    be found under the top level directory, named LICENSE.
+    If a copy of the MPL was not distributed with this file, You can obtain one at
+    http://mozilla.org/MPL/2.0/.
+    If a copy of the Healthcare Disclaimer was not distributed with this file, You
+    can obtain one at the project website https://github.com/igia.
+
+    Copyright (C) 2018-2019 Persistent Systems, Inc.
+
+-->
+<ng-container *ngFor="let configuration of configurations.controls; let confIndex=index; let even=even;">
+    <div *ngIf="even" class="row no-gutters">
+        <igia-endpoint-configuration-detail class="igia-fg-pr col-md-6" [id]="id" [configuration]="configuration"
+            [configurationMetadata]="configurationsMetadata[confIndex]"></igia-endpoint-configuration-detail>
+        <igia-endpoint-configuration-detail *ngIf="configurations.length > (confIndex+1)" class="igia-fg-pl col-md-6" [id]="id"
+            [configuration]="configurations.controls[confIndex+1]" [configurationMetadata]="configurationsMetadata[confIndex+1]"></igia-endpoint-configuration-detail>
+    </div>
+</ng-container>

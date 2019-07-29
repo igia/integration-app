@@ -1,0 +1,60 @@
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v.
+    2.0 with a Healthcare Disclaimer.
+    A copy of the Mozilla Public License, v. 2.0 with the Healthcare Disclaimer can
+    be found under the top level directory, named LICENSE.
+    If a copy of the MPL was not distributed with this file, You can obtain one at
+    http://mozilla.org/MPL/2.0/.
+    If a copy of the Healthcare Disclaimer was not distributed with this file, You
+    can obtain one at the project website https://github.com/igia.
+
+    Copyright (C) 2018-2019 Persistent Systems, Inc.
+
+-->
+<div [formGroup]="configuration" class="form-group bmd-form-group bmd-form-group-sm">
+    <ng-container [ngSwitch]="configurationMetadata.controlType">
+        <label
+            *ngSwitchCase="configurationMetadata.controlType !== 'checkbox' ? configurationMetadata.controlType : ''"
+            class="bmd-label-floating"
+            [translate]="'endpoint.configurations.' + configurationKeyValue"
+            [igiaRequiredStyle]="configurationMetadata['required']"
+            [for]="uniqueId(configurationKeyValue)"
+            >key</label
+        >
+        <input
+            *ngSwitchCase="'textbox'"
+            [type]="configurationMetadata['type']"
+            class="form-control"
+            igiaBmdStyle
+            formControlName="value"
+            [id]="uniqueId(configurationKeyValue)"
+            [class.igia-custom-invalid]="configurationValue.errors"
+        />
+        <select
+            [id]="uniqueId(configurationKeyValue)"
+            *ngSwitchCase="'dropdown'"
+            class="form-control"
+            igiaBmdStyle
+            formControlName="value"
+            [class.igia-custom-invalid]="configurationValue.errors"
+        >
+            <option *ngFor="let option of configurationMetadata['options']" [value]="option.key">
+                {{ 'endpoint.configurations.' + configurationKeyValue + 'Option.' + option.key | translate }}
+            </option>
+        </select>
+
+        <div *ngSwitchCase="'checkbox'" class="checkbox">
+            <label>
+                <input type="checkbox" class="form-control" formControlName="value" [id]="uniqueId(configurationKeyValue)" />
+                <span class="checkbox-decorator"><span class="check"></span></span>
+                {{ 'endpoint.configurations.' + configurationKeyValue | translate }}
+            </label>
+        </div>
+
+        <igia-form-control-error
+            [translationKey]="'endpoint.configurations.' + configurationKeyValue"
+            [control]="configurationValue"
+        ></igia-form-control-error>
+    </ng-container>
+</div>

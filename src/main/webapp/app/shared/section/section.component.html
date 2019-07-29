@@ -1,0 +1,25 @@
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v.
+    2.0 with a Healthcare Disclaimer.
+    A copy of the Mozilla Public License, v. 2.0 with the Healthcare Disclaimer can
+    be found under the top level directory, named LICENSE.
+    If a copy of the MPL was not distributed with this file, You can obtain one at
+    http://mozilla.org/MPL/2.0/.
+    If a copy of the Healthcare Disclaimer was not distributed with this file, You
+    can obtain one at the project website https://github.com/igia.
+
+    Copyright (C) 2018-2019 Persistent Systems, Inc.
+
+-->
+<div class="row" [ngSwitch]="collapse === false">
+    <div [ngClass]="{'col igia-title': true}" [class]="classes" (click)="collapse = !collapse" [attr.aria-expanded]="!collapse"
+        aria-controls="section-content">
+        <fa-icon class="pr-2" [icon]="'plus'" *ngSwitchCase="false"></fa-icon>
+        <fa-icon class="pr-2" [icon]="'minus'" *ngSwitchCase="true"></fa-icon>
+        <span class="igia-group-title">{{titleText}}&nbsp;<span *ngIf="count > 0" class="badge badge-light">{{count}}</span></span>
+    </div>
+    <div id="section-content" class="col-12" [ngbCollapse]="collapse">
+        <ng-template [ngTemplateOutlet]="contentTpl?.templateRef"></ng-template>
+    </div>
+</div>

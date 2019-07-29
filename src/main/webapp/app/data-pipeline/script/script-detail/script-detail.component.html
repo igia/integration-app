@@ -1,0 +1,49 @@
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v.
+    2.0 with a Healthcare Disclaimer.
+    A copy of the Mozilla Public License, v. 2.0 with the Healthcare Disclaimer can
+    be found under the top level directory, named LICENSE.
+    If a copy of the MPL was not distributed with this file, You can obtain one at
+    http://mozilla.org/MPL/2.0/.
+    If a copy of the Healthcare Disclaimer was not distributed with this file, You
+    can obtain one at the project website https://github.com/igia.
+
+    Copyright (C) 2018-2019 Persistent Systems, Inc.
+
+-->
+<div class="modal-header">
+    <h4 class="modal-title">{{getTitle()}}</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-describedby="modal-title" aria-hidden="true" (click)="dismiss('cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body" [formGroup]="script">
+    <div class="form-group bmd-form-group bmd-form-group-sm">
+        <label class="bmd-label-floating" translate="script.description" for="description">Description</label>
+        <textarea rows="2" class="form-control" ngbAutofocus id="description" formControlName="description"></textarea>
+        <igia-form-control-error translationKey="script.description" [control]="script.get('description')"></igia-form-control-error>
+    </div>
+    <div class="form-group bmd-form-group bmd-form-group-sm">
+        <label class="bmd-label-floating" translate="script.type" igiaRequiredStyle for="type">Type</label>
+        <select class="form-control" id="type" formControlName="type" [class.igia-custom-invalid]="script.get('type').errors">
+            <option [ngValue]="null">{{'script.action.select' | translate}}</option>
+            <option [ngValue]="scriptType" *ngFor="let scriptType of scriptTypes">{{ 'script.' + scriptType |
+                translate}}</option>
+        </select>
+        <igia-form-control-error translationKey="script.type" [control]="script.get('type')"></igia-form-control-error>
+    </div>
+    <div class="form-group bmd-form-group bmd-form-group-sm">
+        <label class="bmd-label-floating" translate="script.data" igiaRequiredStyle for="data">Script</label>
+        <textarea rows="15" class="form-control script-data" id="data" formControlName="data" [class.igia-custom-invalid]="script.get('data').errors"></textarea>
+        <igia-form-control-error translationKey="script.data" [control]="script.get('data')"></igia-form-control-error>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="dismiss('cancel click')">
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+    </button>
+    <button type="button" ngbAutofocus class="btn btn-primary" [disabled]="!script.valid" (click)="save()">
+        <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+    </button>
+</div>

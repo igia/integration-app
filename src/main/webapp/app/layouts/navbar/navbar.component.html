@@ -1,0 +1,78 @@
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v.
+    2.0 with a Healthcare Disclaimer.
+    A copy of the Mozilla Public License, v. 2.0 with the Healthcare Disclaimer can
+    be found under the top level directory, named LICENSE.
+    If a copy of the MPL was not distributed with this file, You can obtain one at
+    http://mozilla.org/MPL/2.0/.
+    If a copy of the Healthcare Disclaimer was not distributed with this file, You
+    can obtain one at the project website https://github.com/igia.
+
+    Copyright (C) 2018-2019 Persistent Systems, Inc.
+
+-->
+<nav class="navbar navbar-light navbar-expand-md">
+    <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
+        <img src="../../../content/images/logo-192.png" class="logo-img" alt="logo" />
+        <span jhiTranslate="global.title" class="navbar-title">Integration Server</span>
+        <span class="navbar-version">{{ version }}</span>
+    </a>
+    <a
+        class="navbar-toggler d-lg-none"
+        href="javascript:void(0);"
+        aria-controls="navbarResponsive"
+        [attr.aria-expanded]="!isNavbarCollapsed"
+        aria-label="Toggle navigation"
+        (click)="toggleNavbar()"
+    >
+        <fa-icon [icon]="'bars'"></fa-icon>
+    </a>
+    <div class="navbar-collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
+        <ul class="navbar-nav ml-auto">
+            <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active">
+                <a class="nav-link btn" routerLink="/data-pipeline" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon [icon]="'route'"></fa-icon>
+                        <span jhiTranslate="global.menu.data-pipeline">Data Pipeline</span>
+                    </span>
+                </a>
+            </li>
+            <li ngbDropdown class="nav-item btn-group dropdown pointer" *ngIf="languages && languages.length > 1">
+                <a class="nav-link btn dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown">
+                    <span>
+                        <fa-icon [icon]="'flag'"></fa-icon>
+                        <span jhiTranslate="global.menu.language">Language</span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="languagesnavBarDropdown">
+                    <li *ngFor="let language of languages">
+                        <a
+                            class="dropdown-item"
+                            [igiaActiveMenu]="language"
+                            href="javascript:void(0);"
+                            (click)="changeLanguage(language); collapseNavbar()"
+                            >{{ language | findLanguageFromKey }}</a
+                        >
+                    </li>
+                </ul>
+            </li>
+            <li *ngSwitchCase="false" class="nav-item">
+                <a class="nav-link btn" (click)="login()" id="login">
+                    <span>
+                        <fa-icon [icon]="'sign-in-alt'" [fixedWidth]="true"></fa-icon>
+                        <span jhiTranslate="global.menu.login">Sign In</span>
+                    </span>
+                </a>
+            </li>
+            <li *ngSwitchCase="true" class="nav-item">
+                <a class="nav-link btn" (click)="logout()" id="logout">
+                    <span>
+                        <fa-icon [icon]="'sign-out-alt'" [fixedWidth]="true"></fa-icon>
+                        <span jhiTranslate="global.menu.logout">Sign Out</span>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

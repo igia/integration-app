@@ -1,0 +1,24 @@
+{
+    "endpoint": {
+        "name": "Name",
+        "type": "Type",
+        "MLLP": "Minimal Low Layer Protocol (MLLP)",
+        "FILE": "File System",
+        "SFTP": "Secure File Transfer Protocol (SFTP)",
+        "HTTP": "Hypertext Transfer Protocol Secure (HTTPS)",
+        "inDataType": "Incoming Data Type",
+        "outDataType": "Outgoing Data Type",
+        "action": {
+            "select": "Select Endpoint Type"
+        },
+        "dataType": {
+            "HL7_V2": "HL7 V2",
+            "CSV": "CSV",
+            "JSON": "JSON",
+            "RAW": "RAW",
+            "action": {
+                "select": "Select Data Type"
+            }
+        }
+    }
+}

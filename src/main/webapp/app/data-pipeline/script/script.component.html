@@ -1,0 +1,71 @@
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v.
+    2.0 with a Healthcare Disclaimer.
+    A copy of the Mozilla Public License, v. 2.0 with the Healthcare Disclaimer can
+    be found under the top level directory, named LICENSE.
+    If a copy of the MPL was not distributed with this file, You can obtain one at
+    http://mozilla.org/MPL/2.0/.
+    If a copy of the Healthcare Disclaimer was not distributed with this file, You
+    can obtain one at the project website https://github.com/igia.
+
+    Copyright (C) 2018-2019 Persistent Systems, Inc.
+
+-->
+<igia-page>
+    <ng-template igiaPageTitle>
+        <div class="text-right">
+            <button type="button" class="btn btn-primary" (click)="addOrUpdate()">
+                <fa-icon icon="plus"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.add"> Add </span>
+            </button>
+        </div>
+    </ng-template>
+    <ng-template igiaPageBody loader="true">
+        <div *ngIf="scripts && scripts.controls.length" class="script-box">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="script-header script-grip"></th>
+                        <th class="script-header script-type"><span jhiTranslate="script.type">Type</span></th>
+                        <th class="script-header"><span jhiTranslate="script.description">Description</span></th>
+                        <th class="script-header"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr [id]="uniqueId(script)"  draggable="true" (dragstart)="drag($event, loopIndex)" (drop)="drop($event, uniqueId(script), loopIndex)"
+                        (dragover)="allowDrop($event)" (dragend)="dragend()" (dragenter)="dragenter(uniqueId(script), loopIndex)"
+                        [formGroup]="script" *ngFor="let script of scripts.controls; let loopIndex=index">
+                        <td class="script-grip">
+                            <fa-icon class="script-grip--icon" icon="grip-vertical"></fa-icon>
+                        </td>
+                        <td class="script-type">{{ 'script.' + script.get('type').value |translate }}</td>
+                        <td>{{ script.get('description').value }}</td>
+                        <td class="text-right">
+                            <div class="dropdown pull-xs-right">
+                                <button class="btn btn-primary bmd-btn-icon dropdown-toggle igia-md-dropdown" type="button" [id]="uniqueId(script) + 'actions'"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <fa-icon icon="ellipsis-v"></fa-icon>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right igia-dropdown igia-md-dropdown"
+                                    [attr.aria-labelledby]="uniqueId(script) + 'actions'">
+                                    <button class="dropdown-item igia-dropdown-item" type="button" (click)="addOrUpdate(script)">
+                                        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;
+                                        <span class="pl-1 d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                    </button>
+                                    <button class="dropdown-item igia-dropdown-item" type="button" (click)="delete(loopIndex)">
+                                        <fa-icon icon="trash-alt"></fa-icon>&nbsp;
+                                        <span class="pl-1 d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="scripts && !scripts.length">
+            <igia-alert [alerts]="noDataAlert()"></igia-alert>
+        </div>
+    </ng-template>
+</igia-page>

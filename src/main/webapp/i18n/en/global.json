@@ -1,0 +1,58 @@
+{
+    "global": {
+        "title": "Integration Server",
+        "browsehappy":
+            "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
+        "menu": {
+            "data-pipeline": "Data Pipeline",
+            "login": "Sign In",
+            "logout": "Sign Out",
+            "language": "Language"
+        },
+        "ribbon": {
+            "standalone": "Standalone",
+            "dev": "Development"
+        },
+        "item-count": "Showing {{first}} - {{second}} of {{total}} items."
+    },
+    "entity": {
+        "action": {
+            "add": "Add",
+            "create": "Create",
+            "delete": "Delete",
+            "edit": "Edit",
+            "export": "Export",
+            "import": "Import",
+            "view": "View",
+            "save": "Save",
+            "cancel": "Cancel",
+            "close": "Close",
+            "refresh": "Refresh"
+        }
+    },
+    "error": {
+        "gateway.not.reachable": "Gateway not reachable",
+        "internalServerError": "Internal server error",
+        "server.not.reachable": "Server not reachable",
+        "url.not.found": "Not found",
+        "NotNull": "Field {{ fieldName }} cannot be empty!",
+        "Size": "Field {{ fieldName }} does not meet min/max size requirements!",
+        "userexists": "Login name already used!",
+        "emailexists": "Email is already in use!",
+        "idexists": "A new {{ entityName }} cannot already have an ID",
+        "idnull": "Invalid ID",
+        "required": " is required",
+        "maxlength": " value must be less than {{ value }} characters long",
+        "minlength": " value must be at least {{ value }} characters long",
+        "min": " value must be greater than {{ value }}",
+        "max": " value must be less than {{ value }}",
+        "pattern": "has an invalid value",
+        "duplicate.datapipeline.name": "Data Pipeline name '{{ value }}' is already in use.",
+        "deserialization.exception": "Invalid JSON data."
+    },
+    "footer": {
+        "contact": "Contact us",
+        "copyright.year": "2018-2019",
+        "copyright.persistent": "Persistent Systems"
+    }
+}

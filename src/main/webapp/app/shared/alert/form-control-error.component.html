@@ -1,0 +1,34 @@
+<!--
+
+    This Source Code Form is subject to the terms of the Mozilla Public License, v.
+    2.0 with a Healthcare Disclaimer.
+    A copy of the Mozilla Public License, v. 2.0 with the Healthcare Disclaimer can
+    be found under the top level directory, named LICENSE.
+    If a copy of the MPL was not distributed with this file, You can obtain one at
+    http://mozilla.org/MPL/2.0/.
+    If a copy of the Healthcare Disclaimer was not distributed with this file, You
+    can obtain one at the project website https://github.com/igia.
+
+    Copyright (C) 2018-2019 Persistent Systems, Inc.
+
+-->
+<div *ngIf="control.invalid && control.errors && (control.dirty || control.touched)" class="igia-bmd-error">
+    <div class="igia-bmd-error-message" *ngIf="control.errors?.required">
+        {{ translationKey | translate }}{{ 'error.required' | translate }}
+    </div>
+    <div class="igia-bmd-error-message" *ngIf="control.errors?.minlength">
+        {{ translationKey | translate }} {{ 'error.minlength' | translate: { value: control.errors.minlength.requiredLength } }}
+    </div>
+    <div class="igia-bmd-error-message" *ngIf="control.errors?.maxlength">
+        {{ translationKey | translate }} {{ 'error.maxlength' | translate: { value: control.errors.maxlength.requiredLength } }}
+    </div>
+    <div class="igia-bmd-error-message" *ngIf="control.errors?.min">
+        {{ translationKey | translate }} {{ 'error.min' | translate: { value: control.errors.min.min } }}
+    </div>
+    <div class="igia-bmd-error-message" *ngIf="control.errors?.max">
+        {{ translationKey | translate }} {{ 'error.max' | translate: { value: control.errors.max.max } }}
+    </div>
+    <div class="igia-bmd-error-message" *ngIf="control.errors?.pattern">
+        {{ translationKey | translate }} {{ 'error.pattern' | translate }}
+    </div>
+</div>
