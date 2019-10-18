@@ -24,6 +24,7 @@ export abstract class ConfigurationMetadata<T> implements FormControl<T>, Endpoi
     order?: number;
     controlType?: string;
     required?: boolean;
+    readonly?: boolean;
     minLength?: number;
     maxLength?: number;
     min?: number;
@@ -39,6 +40,7 @@ export abstract class ConfigurationMetadata<T> implements FormControl<T>, Endpoi
         this.order = options.order === undefined ? 1 : options.order;
         this.controlType = options.controlType || '';
         this.required = !!options.required;
+        this.readonly = !!options.readonly;
         this.minLength = options.minLength || 0;
         this.maxLength = options.maxLength || Number.MAX_SAFE_INTEGER;
         this.min = options.min || 0;

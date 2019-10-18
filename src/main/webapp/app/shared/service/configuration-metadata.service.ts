@@ -841,6 +841,35 @@ export class ConfiguationMetadataService implements OnDestroy {
                         value: 'Password'
                     }
                 ]
+            }),
+            new CheckboxConfigurationMetadata<boolean>({
+                key: 'isSecure',
+                value: true,
+                required: true,
+                readonly: true,
+                order: 13,
+                endpointType: EndpointType.HTTP,
+                endpointRoleType: EndpointRoleType.CONSUMER,
+                label: [
+                    {
+                        key: 'en',
+                        value: 'Secure'
+                    }
+                ]
+            }),
+            new CheckboxConfigurationMetadata<boolean>({
+                key: 'isSecure',
+                value: true,
+                required: false,
+                order: 14,
+                endpointType: EndpointType.HTTP,
+                endpointRoleType: EndpointRoleType.PRODUCER,
+                label: [
+                    {
+                        key: 'en',
+                        value: 'Secure'
+                    }
+                ]
             })
         ]);
     }

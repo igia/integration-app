@@ -48,7 +48,8 @@
         "max": " value must be less than {{ value }}",
         "pattern": "has an invalid value",
         "duplicate.datapipeline.name": "Data Pipeline name '{{ value }}' is already in use.",
-        "deserialization.exception": "Invalid JSON data."
+        "deserialization.exception": "Invalid JSON data.",
+        "duplicate.source.destination.endpoint" : "Source and Destination Endpoint '{{ value }}' can not be same"
     },
     "footer": {
         "contact": "Contact us",

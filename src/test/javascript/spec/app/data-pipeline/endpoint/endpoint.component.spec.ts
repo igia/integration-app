@@ -785,7 +785,7 @@ describe('Component Tests', () => {
 
                     // THEN
                     expect(comp.configurationsMetadata).toBeDefined();
-                    expect(comp.configurationsMetadata.length).toEqual(7);
+                    expect(comp.configurationsMetadata.length).toEqual(8);
                     expect(comp.configurationsMetadata[0].key).toEqual('hostname');
                     expect(comp.configurationsMetadata[1].key).toEqual('port');
                     expect(comp.configurationsMetadata[2].key).toEqual('resourceUri');
@@ -793,9 +793,10 @@ describe('Component Tests', () => {
                     expect(comp.configurationsMetadata[4].key).toEqual('password');
                     expect(comp.configurationsMetadata[5].key).toEqual('enableCORS');
                     expect(comp.configurationsMetadata[6].key).toEqual('sessionSupport');
+                    expect(comp.configurationsMetadata[7].key).toEqual('isSecure');
 
                     const controls = comp.form.get('configurations')['controls'];
-                    expect(controls.length).toEqual(7);
+                    expect(controls.length).toEqual(8);
                     expect(controls[0].get('key')).toBeDefined();
                     expect(controls[1].get('key')).toBeDefined();
                     expect(controls[2].get('key')).toBeDefined();
@@ -803,6 +804,7 @@ describe('Component Tests', () => {
                     expect(controls[4].get('key')).toBeDefined();
                     expect(controls[5].get('key')).toBeDefined();
                     expect(controls[6].get('key')).toBeDefined();
+                    expect(controls[7].get('key')).toBeDefined();
                 })
             );
 
@@ -819,7 +821,7 @@ describe('Component Tests', () => {
 
                         // THEN
                         expect(comp.configurationsMetadata).toBeDefined();
-                        expect(comp.configurationsMetadata.length).toEqual(7);
+                        expect(comp.configurationsMetadata.length).toEqual(8);
                         expect(comp.configurationsMetadata[0].key).toEqual('hostname');
                         expect(comp.configurationsMetadata[1].key).toEqual('port');
                         expect(comp.configurationsMetadata[2].key).toEqual('resourceUri');
@@ -827,9 +829,10 @@ describe('Component Tests', () => {
                         expect(comp.configurationsMetadata[4].key).toEqual('password');
                         expect(comp.configurationsMetadata[5].key).toEqual('enableCORS');
                         expect(comp.configurationsMetadata[6].key).toEqual('sessionSupport');
+                        expect(comp.configurationsMetadata[7].key).toEqual('isSecure');
 
                         const controls = comp.form.get('configurations')['controls'];
-                        expect(controls.length).toEqual(7);
+                        expect(controls.length).toEqual(8);
                         expect(controls[0].get('value').valid).toBeFalsy();
                         expect(controls[1].get('value').valid).toBeFalsy();
                         expect(controls[2].get('value').valid).toBeFalsy();
@@ -837,6 +840,7 @@ describe('Component Tests', () => {
                         expect(controls[4].get('value').valid).toBeFalsy();
                         expect(controls[5].get('value').valid).toBeTruthy();
                         expect(controls[6].get('value').valid).toBeTruthy();
+                        expect(controls[7].get('value').valid).toBeTruthy();
                     })
                 );
             });
@@ -884,7 +888,7 @@ describe('Component Tests', () => {
 
                         // THEN
                         const controls = comp.form.get('configurations')['controls'];
-                        expect(controls.length).toEqual(7);
+                        expect(controls.length).toEqual(8);
                         expect(controls[0].get('key').value).toEqual('hostname');
                         expect(controls[0].get('value').value).toEqual('localhost');
                         expect(controls[1].get('key').value).toEqual('port');
@@ -912,7 +916,7 @@ describe('Component Tests', () => {
 
                         // THEN
                         const controls = comp.form.get('configurations')['controls'];
-                        expect(controls.length).toEqual(7);
+                        expect(controls.length).toEqual(8);
                         expect(controls[0].get('key').value).toEqual('hostname');
                         expect(controls[0].get('value').value).toBeNull();
                         expect(controls[1].get('key').value).toEqual('port');
@@ -942,7 +946,7 @@ describe('Component Tests', () => {
 
                             // THEN
                             const controls = comp.form.get('configurations')['controls'];
-                            expect(controls.length).toEqual(7);
+                            expect(controls.length).toEqual(8);
                             expect(controls[0].get('key').value).toEqual('hostname');
                             expect(controls[0].get('value').value).toBeNull();
                             expect(controls[1].get('key').value).toEqual('port');

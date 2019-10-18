@@ -86,6 +86,7 @@ describe('Service: Configuration Translate', () => {
                     'httpMethodOption.PUT': 'PUT',
                     idleTimeout: 'Idle timeout (in milliseconds)',
                     initialDelay: 'Initial delay (in milliseconds)',
+                    isSecure: 'Secure',
                     move: 'Move directory',
                     moveFailed: 'Error directory',
                     password: 'Password',

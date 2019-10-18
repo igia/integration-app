@@ -19,6 +19,7 @@ export interface FormControl<T> {
     order?: number;
     controlType?: string;
     required?: boolean;
+    readonly?: boolean;
     minLength?: number;
     maxLength?: number;
     min?: number;

@@ -30,4 +30,5 @@ export const assertDestinationHttpEndpointConfigurations = async (destinationCon
     expect(await destinationConfigurations.authMethod.isPresent()).to.be.true;
     expect(await destinationConfigurations.authUsername.isPresent()).to.be.true;
     expect(await destinationConfigurations.authPassword.isPresent()).to.be.true;
+    expect(await destinationConfigurations.isSecure.isPresent()).to.be.true;
 };
