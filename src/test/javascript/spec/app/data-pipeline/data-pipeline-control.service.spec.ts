@@ -41,6 +41,57 @@ describe('Service Tests', () => {
                     expect(form['controls']['workerService'].valid).toEqual(false);
                 });
 
+                it('should check datapipeline name with blank spaces', () => {
+                    // GIVEN
+                    const pipeline: Pipeline = {
+                        id: 14,
+                        name: '  ',
+                        description: 'This is data pipeline',
+                        deploy: true,
+                        version: '1.0.0',
+                        state: DataPipelineState.READY,
+                        workerService: 'workerService10'
+                    };
+                    const form = service.toFormGroup(pipeline);
+
+                    // THEN
+                    expect(form['controls']['name'].valid).toEqual(false);
+                });
+
+                it('should check datapipeline name with special chars', () => {
+                    // GIVEN
+                    const pipeline: Pipeline = {
+                        id: 14,
+                        name: 'A1@1234',
+                        description: 'This is data pipeline',
+                        deploy: true,
+                        version: '1.0.0',
+                        state: DataPipelineState.READY,
+                        workerService: 'workerService10'
+                    };
+
+                    const form = service.toFormGroup(pipeline);
+                    // THEN
+                    expect(form['controls']['name'].valid).toEqual(false);
+                });
+
+                it('should check datapipeline name with correct pattern', () => {
+                    // GIVEN
+                    const pipeline: Pipeline = {
+                        id: 14,
+                        name: 'Data_Pipeline-10',
+                        description: 'This is data pipeline',
+                        deploy: true,
+                        version: '1.0.0',
+                        state: DataPipelineState.READY,
+                        workerService: 'workerService10'
+                    };
+
+                    const form = service.toFormGroup(pipeline);
+                    // THEN
+                    expect(form['controls']['name'].valid).toEqual(true);
+                });
+
                 it('should check source field validations', () => {
                     // GIVEN
                     const form = service.toFormGroup();
@@ -55,6 +106,44 @@ describe('Service Tests', () => {
                     expect(source['outDataType'].valid).toEqual(false);
                 });
 
+                it('should check source name with blank spaces', () => {
+                    // GIVEN
+                    const endpoint: Endpoint = {
+                        id: 14,
+                        name: '  '
+                    };
+                    const source = service.toEndpointFormGroup(endpoint);
+
+                    // THEN
+                    expect(source['controls']['name'].valid).toEqual(false);
+                });
+
+                it('should check source name with special chars', () => {
+                    // GIVEN
+                    const endpoint: Endpoint = {
+                        id: 14,
+                        name: 'Sour@ce'
+                    };
+
+                    const source = service.toEndpointFormGroup(endpoint);
+
+                    // THEN
+                    expect(source['controls']['name'].valid).toEqual(false);
+                });
+
+                it('should check source name with valid pattern', () => {
+                    // GIVEN
+                    const endpoint: Endpoint = {
+                        id: 14,
+                        name: 'Source_01'
+                    };
+
+                    const source = service.toEndpointFormGroup(endpoint);
+
+                    // THEN
+                    expect(source['controls']['name'].valid).toEqual(true);
+                });
+
                 it('should check destination field validations', () => {
                     // GIVEN
                     const form = service.toFormGroup();
@@ -67,6 +156,45 @@ describe('Service Tests', () => {
                     expect(destination['controls']['type'].valid).toEqual(false);
                     expect(destination['controls']['inDataType'].valid).toEqual(false);
                     expect(destination['controls']['outDataType'].valid).toEqual(false);
+                });
+
+                it('should check destination name with blank spaces', () => {
+                    // GIVEN
+                    const endpoint: Endpoint = {
+                        id: 14,
+                        name: '  '
+                    };
+                    const destination = service.toEndpointFormGroup(endpoint);
+
+                    // THEN
+                    expect(destination['controls']['name'].valid).toEqual(false);
+                });
+
+                it('should check destination name with special chars', () => {
+                    // GIVEN
+                    const endpoint: Endpoint = {
+                        id: 14,
+                        name: 'Destin@tion'
+                    };
+                    endpoint.name = 'Destin@tion';
+
+                    const destination = service.toEndpointFormGroup(endpoint);
+
+                    // THEN
+                    expect(destination['controls']['name'].valid).toEqual(false);
+                });
+
+                it('should check destination name with valid pattern', () => {
+                    // GIVEN
+                    const endpoint: Endpoint = {
+                        id: 14,
+                        name: 'Destination_01'
+                    };
+
+                    const destination = service.toEndpointFormGroup(endpoint);
+
+                    // THEN
+                    expect(destination['controls']['name'].valid).toEqual(true);
                 });
             });
 

@@ -60,7 +60,7 @@ export class DataPipelineConfigurationPage {
             case 'Secure File Transfer Protocol (SFTP)':
                 this.detailPage = new SourceSftpConfigurationPage(this.prefix, this.index);
                 break;
-            case 'Hypertext Transfer Protocol Secure (HTTPS)':
+            case 'Hypertext Transfer Protocol (HTTP)':
                 this.detailPage = new SourceHttpConfigurationPage(this.prefix, this.index);
                 break;
             case 'Minimal Low Layer Protocol (MLLP)':
@@ -77,7 +77,7 @@ export class DataPipelineConfigurationPage {
             case 'Secure File Transfer Protocol (SFTP)':
                 this.detailPage = new DestinationSftpConfigurationPage(this.prefix, this.index);
                 break;
-            case 'Hypertext Transfer Protocol Secure (HTTPS)':
+            case 'Hypertext Transfer Protocol (HTTP)':
                 this.detailPage = new DestinationHttpConfigurationPage(this.prefix, this.index);
                 break;
             case 'Minimal Low Layer Protocol (MLLP)':

@@ -16,6 +16,7 @@ export abstract class HttpConfigurationPage {
     hostName;
     port;
     resourceUri;
+    isSecure;
 
     constructor(prefix: string, index?: number) {
         if (!index) {
@@ -24,5 +25,6 @@ export abstract class HttpConfigurationPage {
         this.hostName = element(by.id(`${prefix}${index}chostname`));
         this.port = element(by.id(`${prefix}${index}cport`));
         this.resourceUri = element(by.id(`${prefix}${index}cresourceUri`));
+        this.isSecure = element(by.id(`${prefix}${index}cisSecure`));
     }
 }

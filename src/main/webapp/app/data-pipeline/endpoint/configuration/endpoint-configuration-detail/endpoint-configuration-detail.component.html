@@ -46,7 +46,7 @@
 
         <div *ngSwitchCase="'checkbox'" class="checkbox">
             <label>
-                <input type="checkbox" class="form-control" formControlName="value" [id]="uniqueId(configurationKeyValue)" />
+                <input type="checkbox" class="form-control" formControlName="value" [attr.disabled]="configurationMetadata['readonly']? 'disabled' :null" [id]="uniqueId(configurationKeyValue)" />
                 <span class="checkbox-decorator"><span class="check"></span></span>
                 {{ 'endpoint.configurations.' + configurationKeyValue | translate }}
             </label>

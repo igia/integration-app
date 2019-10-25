@@ -5,7 +5,7 @@
         "MLLP": "Minimal Low Layer Protocol (MLLP)",
         "FILE": "File System",
         "SFTP": "Secure File Transfer Protocol (SFTP)",
-        "HTTP": "Hypertext Transfer Protocol Secure (HTTPS)",
+        "HTTP": "Hypertext Transfer Protocol (HTTP)",
         "inDataType": "Incoming Data Type",
         "outDataType": "Outgoing Data Type",
         "action": {

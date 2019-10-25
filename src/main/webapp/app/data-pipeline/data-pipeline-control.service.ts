@@ -35,7 +35,11 @@ export class DataPipelineControlService {
         form.id = this.fb.control(pipeline.id || undefined);
         form.state = this.fb.control(pipeline.state || undefined);
         form.version = this.fb.control(pipeline.version || undefined);
-        form.name = this.fb.control(pipeline.name || '', [Validators.required, Validators.maxLength(255)]);
+        form.name = this.fb.control(pipeline.name || '', [
+            Validators.required,
+            Validators.maxLength(255),
+            Validators.pattern('^\\S[a-zA-z0-9-_ ]+$')
+        ]);
         form.description = this.fb.control(pipeline.description || '');
         form.deploy = this.fb.control(pipeline.deploy || false);
         form.workerService = this.fb.control(pipeline.workerService || undefined, [Validators.required]);
@@ -52,7 +56,11 @@ export class DataPipelineControlService {
 
     toEndpointFormGroup(endpoint: Endpoint = new DataPipelineEndpoint()) {
         const form = new DataPipelineEndpointForm();
-        form.name = this.fb.control(endpoint.name || '', [Validators.required, Validators.maxLength(255)]);
+        form.name = this.fb.control(endpoint.name || '', [
+            Validators.required,
+            Validators.maxLength(255),
+            Validators.pattern('^\\S[a-zA-z0-9-_ ]+$')
+        ]);
         form.type = this.fb.control(endpoint.type || undefined, [Validators.required]);
         form.inDataType = this.fb.control(endpoint.inDataType || undefined, [Validators.required]);
         form.outDataType = this.fb.control(endpoint.outDataType || undefined, [Validators.required]);
