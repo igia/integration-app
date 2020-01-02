@@ -86,7 +86,7 @@ describe('create sftp to file data pipeline', () => {
         await sourceConfigurations.hostName.sendKeys(browser.params.sftp_host);
         await sourceConfigurations.userName.sendKeys(browser.params.sftp_username);
         await sourceConfigurations.passWord.sendKeys(browser.params.sftp_password);
-        await sourceConfigurations.directoryPath.sendKeys('/public/integration');
+        await sourceConfigurations.directoryPath.sendKeys('/home/igia/sftp-input');
         await sourceConfigurations.fileName.sendKeys('fromsftp.hl7');
 
         // filter patients who had heart failure
@@ -165,8 +165,8 @@ describe('create sftp to file data pipeline', () => {
             await sourceConfigurations.includeFilePattern.sendKeys('**/*.hl7');
             await sourceConfigurations.excludeFilePattern.sendKeys('**/encounter.json');
             await sourceConfigurations.sortFileCriteria.sendKeys('file:name');
-            await sourceConfigurations.moveDirectory.sendKeys('public/integration/home/test/done');
-            await sourceConfigurations.errorDirectory.sendKeys('public/integration/home/test/error');
+            await sourceConfigurations.moveDirectory.sendKeys('home/igia/sftp-input/home/test/done');
+            await sourceConfigurations.errorDirectory.sendKeys('home/igia/sftp-input/home/test/error');
             await sourceConfigurations.doneFileName.sendKeys('tmp');
             await sourceConfigurations.delay.sendKeys('3000000');
             await sourceConfigurations.initialDelay.sendKeys('1000');
