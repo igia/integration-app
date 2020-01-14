@@ -45,9 +45,9 @@ exports.config = {
     baseUrl: 'http://localhost:8052/',
 
     params: {
-        sftp_host: '',
-        sftp_username: '',
-        sftp_password: '',
+        sftp_host: 'integration-app-sftp',
+        sftp_username: 'igia',
+        sftp_password: 'integration',
         file_download_Path: file_download_directory
         },
 
